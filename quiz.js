@@ -49,10 +49,33 @@ const createQuestionElement = (question) => {
 
   questionElement.appendChild(questionHeading);
 
+let options =[...question.incorrect_answers, question.correct_answer ];
+
+
+options.forEach(option =>{
+
+ const optionElement = createOptionElement(option);
+ questionElement.appendChild(optionElement);
+
+
+
+})
  
 
   return questionElement;
 
+
+
+
+}
+
+
+const createOptionElement =(option) => {
+ const optionElement = document.createElement('div');
+ optionElement.className = 'option';
+ optionElement.innerHTML = option;
+ 
+ return optionElement;
 
 
 
