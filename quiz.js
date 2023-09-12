@@ -49,12 +49,16 @@ const createQuestionElement = (question) => {
 
   questionElement.appendChild(questionHeading);
 
-let options =[...question.incorrect_answers, question.correct_answer ];
+//let options =[...question.incorrect_answers, question.correct_answer ];
 
+ let options = question.incorrect_answers;
 
-options.forEach(option =>{
+  const randomIndex = Math.floor(Math.random() * options.length + 1);
+  options.splice(randomIndex, 0, question.correct_answer);
 
- const optionElement = createOptionElement(option);
+options.forEach( option =>{
+
+ const optionElement = createOptionElement(option, question.correct_answer);
  questionElement.appendChild(optionElement);
 
 
@@ -70,10 +74,23 @@ options.forEach(option =>{
 }
 
 
-const createOptionElement =(option) => {
+const createOptionElement =(option, correct_answer) => {
+
  const optionElement = document.createElement('div');
  optionElement.className = 'option';
  optionElement.innerHTML = option;
+
+ optionElement.addEventListener('click', e =>{
+
+  if (option = correct_answer) {
+    optionElement.classList.add('correct_answer');
+    console.log('Rätt');
+  } else {
+    optionElement.classList.add('incorrect_answer');
+    console.log('Fel');
+  }
+
+ })
  
  return optionElement;
 
